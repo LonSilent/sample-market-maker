@@ -309,7 +309,7 @@ class OrderManager:
 
     def place_orders(self):
         """Create order items for use in convergence."""
-
+        position = self.exchange.get_position()['avgCostPrice']
         buy_orders = []
         sell_orders = []
         # Create orders from the outside in. This is intentional - let's say the inner order gets taken;
@@ -321,6 +321,9 @@ class OrderManager:
                 buy_orders.append(self.prepare_order(-i))
             if not self.short_position_limit_exceeded():
                 sell_orders.append(self.prepare_order(i))
+
+        buy_orders = [x for x in buy_orders if x['price'] < position]
+        sell_orders = [x for x in buy_orders if x['price'] > position]
 
         return self.converge_orders(buy_orders, sell_orders)
 
