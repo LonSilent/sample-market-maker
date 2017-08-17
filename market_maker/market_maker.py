@@ -222,7 +222,8 @@ class OrderManager:
     def reset(self):
         self.exchange.cancel_all_orders()
         self.sanity_check()
-        self.print_status()
+        if not settings.QUIET_MODE:
+            self.print_status()
 
         # Create orders and converge.
         self.place_orders()
