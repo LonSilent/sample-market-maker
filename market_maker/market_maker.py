@@ -323,14 +323,12 @@ class OrderManager:
             if not self.short_position_limit_exceeded():
                 sell_orders.append(self.prepare_order(i))
 
-        """
         for i in reversed(range(len(buy_orders))):
             if buy_orders[i]['price'] > settings.MAX_BUY_POSITION:
                 buy_orders[i]['price'] = round(settings.MAX_BUY_POSITION - 10 - 20 * (len(buy_orders) - i), 1)
         for i in reversed(range(len(sell_orders))):
             if sell_orders[i]['price'] < settings.MIN_SELL_POSITION:
                 sell_orders[i]['price'] = round(settings.MIN_SELL_POSITION + 10 + 20 * (len(sell_orders) - i), 1)
-        """
 
         if cost_position != None:
             for i in reversed(range(len(buy_orders))):
@@ -339,13 +337,6 @@ class OrderManager:
             for i in reversed(range(len(sell_orders))):
                 if sell_orders[i]['price'] < cost_position:
                     sell_orders[i]['price'] = round(cost_position + 10 + 20 * (len(sell_orders) - i), 1)
-
-        # for i in reversed(range(len(buy_orders))):
-        #     if buy_orders[i]['price'] > settings.MAX_BUY_POSITION:
-        #         buy_orders[i]['price'] = round(settings.MAX_BUY_POSITION - 10 - 20 * (len(buy_orders) - i), 1)
-        # for i in reversed(range(len(sell_orders))):
-        #     if sell_orders[i]['price'] < settings.MIN_SELL_POSITION:
-        #         sell_orders[i]['price'] = round(settings.MIN_SELL_POSITION + 10 + 20 * (len(sell_orders) - i), 1)
 
         return self.converge_orders(buy_orders, sell_orders)
 
