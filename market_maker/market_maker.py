@@ -322,10 +322,10 @@ class OrderManager:
             if not self.short_position_limit_exceeded():
                 sell_orders.append(self.prepare_order(i))
 
-        for i in len(buy_orders):
+        for i in range(len(buy_orders)):
             if buy_orders[i]['price'] > cost_position:
                 buy_orders[i]['price'] = position - 20 * i
-        for i in len(sell_orders):
+        for i in range(len(sell_orders)):
             if sell_orders[i]['price'] < cost_position:
                 sell_orders[i]['price'] = position + 20 * i
 
