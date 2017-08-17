@@ -324,10 +324,10 @@ class OrderManager:
 
         for i in range(len(buy_orders)):
             if buy_orders[i]['price'] > cost_position:
-                buy_orders[i]['price'] = position - 20 * i
+                buy_orders[i]['price'] = cost_position - 20 * i
         for i in range(len(sell_orders)):
             if sell_orders[i]['price'] < cost_position:
-                sell_orders[i]['price'] = position + 20 * i
+                sell_orders[i]['price'] = cost_position + 20 * i
 
         return self.converge_orders(buy_orders, sell_orders)
 
