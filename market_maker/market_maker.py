@@ -545,7 +545,7 @@ class OrderManager:
     def run_loop(self):
         while True:
             existing_orders = self.exchange.get_orders()
-            if len(existing_orders) != 12:
+            if len(existing_orders) <= 10:
                 sys.stdout.write("-----\n")
             sys.stdout.flush()
 
@@ -558,7 +558,7 @@ class OrderManager:
                 logger.error("Realtime data connection unexpectedly closed, restarting.")
                 self.restart()
 
-            if len(existing_orders) == 12:
+            if len(existing_orders) > 10:
                 sleep(10)
                 continue
             self.sanity_check()  # Ensures health of mm - several cut-out points here
