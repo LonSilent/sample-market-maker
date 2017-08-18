@@ -332,7 +332,7 @@ class OrderManager:
             if sell_orders[i]['price'] < settings.MIN_SELL_POSITION:
                 sell_orders[i]['price'] = round(settings.MIN_SELL_POSITION + 10 + 20 * (len(sell_orders) - i), 1)
                 flag = True
-        if flag == True
+        if flag == True:
             return self.converge_orders(buy_orders, sell_orders)
 
         if cost_position != None:
