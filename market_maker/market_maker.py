@@ -516,6 +516,9 @@ class OrderManager:
         while True:
             existing_orders = self.exchange.get_orders()
             print(existing_orders)
+            if len(existing_orders) == 12:
+                sleep(15)
+                continue
             sys.stdout.write("-----\n")
             sys.stdout.flush()
 
