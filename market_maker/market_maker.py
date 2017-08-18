@@ -515,9 +515,8 @@ class OrderManager:
     def run_loop(self):
         while True:
             existing_orders = self.exchange.get_orders()
-            print(existing_orders)
             if len(existing_orders) == 12:
-                sleep(15)
+                sleep(20)
                 continue
             sys.stdout.write("-----\n")
             sys.stdout.flush()
