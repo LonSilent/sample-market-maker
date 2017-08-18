@@ -340,10 +340,10 @@ class OrderManager:
 
         if flag[0] == True:
             for i in reversed(range(len(buy_orders))):
-                buy_orders[i]['price'] = round(settings.MAX_BUY_POSITION - 10 - 20 * (len(buy_orders) - i), 1)
+                buy_orders[i]['price'] = round(settings.MAX_BUY_POSITION - 20 * (len(buy_orders) - i), 1)
         if flag[1] == True:
             for i in reversed(range(len(sell_orders))):
-                sell_orders[i]['price'] = round(settings.MIN_SELL_POSITION + 10 + 20 * (len(sell_orders) - i), 1)
+                sell_orders[i]['price'] = round(settings.MIN_SELL_POSITION + 20 * (len(sell_orders) - i), 1)
         if flag[0] == True or flag[1] == True:
             return self.converge_orders(buy_orders, sell_orders)
 
@@ -363,10 +363,10 @@ class OrderManager:
 
             if flag[3] == True:
                 for i in reversed(range(len(buy_orders))):
-                    buy_orders[i]['price'] = round(cost_position - 10 - 20 * (len(buy_orders) - i), 1)
+                    buy_orders[i]['price'] = round(cost_position - 20 * (len(buy_orders) - i), 1)
             if flag[4] == True:
                 for i in reversed(range(len(sell_orders))):
-                    sell_orders[i]['price'] = round(cost_position + 10 + 20 * (len(sell_orders) - i), 1)
+                    sell_orders[i]['price'] = round(cost_position + 20 * (len(sell_orders) - i), 1)
 
         return self.converge_orders(buy_orders, sell_orders)
 
