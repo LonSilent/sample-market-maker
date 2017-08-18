@@ -545,7 +545,8 @@ class OrderManager:
     def run_loop(self):
         while True:
             existing_orders = self.exchange.get_orders()
-            sys.stdout.write("-----\n")
+            if len(existing_orders) != 12:
+                sys.stdout.write("-----\n")
             sys.stdout.flush()
 
             self.check_file_change()
