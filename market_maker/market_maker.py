@@ -513,6 +513,8 @@ class OrderManager:
         sys.exit()
 
     def run_loop(self):
+        existing_orders = self.exchange.get_orders()
+        print("existing_orders")
         while True:
             sys.stdout.write("-----\n")
             sys.stdout.flush()
