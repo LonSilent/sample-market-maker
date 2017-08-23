@@ -355,17 +355,17 @@ class OrderManager:
         if cost_position != None:
             for i in range(len(buy_orders)):
                 if buy_orders[i]['price'] > cost_position:
-                    flag[3] = True
+                    flag[2] = True
                     break
             for i in range(len(sell_orders)):
                 if sell_orders[i]['price'] < cost_position:
-                    flag[4] = True
+                    flag[3] = True
                     break
 
-            if flag[3] == True:
+            if flag[2] == True:
                 for i in reversed(range(len(buy_orders))):
                     buy_orders[i]['price'] = round(cost_position - interval * (len(buy_orders) - i + 0.5), 1)
-            if flag[4] == True:
+            if flag[3] == True:
                 for i in reversed(range(len(sell_orders))):
                     sell_orders[i]['price'] = round(cost_position + interval * (len(sell_orders) - i + 0.5), 1)
 
