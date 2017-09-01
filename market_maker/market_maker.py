@@ -311,6 +311,7 @@ class OrderManager:
     def place_orders(self):
         """Create order items for use in convergence."""
         interval = settings.PRICE_INTERVAL
+        force_limit = settings.FORCE_LIMIT
         flag = [False, False, False, False]
         cost_position = self.exchange.get_position()['avgCostPrice']
         buy_orders = []
@@ -339,13 +340,13 @@ class OrderManager:
                 flag[1] = True
                 break
 
-        if flag[0] == True:
+        if flag[0] == True or force_limit:
             for i in reversed(range(len(buy_orders))):
                 buy_orders[i]['price'] = round(settings.MAX_BUY_POSITION - interval * (len(buy_orders) - i - 1), 1)
-        if flag[1] == True:
+        if flag[1] == True or force_limit:
             for i in reversed(range(len(sell_orders))):
                 sell_orders[i]['price'] = round(settings.MIN_SELL_POSITION  + interval * (len(sell_orders) - i - 1), 1)
-        if flag[0] == True or flag[1] == True:
+        if flag[0] == True or flag[1] == True or force_limit:
             return self.converge_orders(buy_orders, sell_orders)
 
         # ==========================
