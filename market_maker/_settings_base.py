@@ -78,6 +78,11 @@ CHECK_POSITION_LIMITS = False
 MIN_POSITION = -10000
 MAX_POSITION = 10000
 
+# If True, will only send orders that rest in the book (ExecInst: ParticipateDoNotInitiate).
+# Use to guarantee a maker rebate.
+# However -- orders that would have matched immediately will instead cancel, and you may end up with
+# unexpected delta. Be careful.
+POST_ONLY = False
 
 ########################################################################################################################
 # Misc Behavior, Technicals
@@ -95,6 +100,7 @@ LOOP_INTERVAL = 5
 # Wait times between orders / errors
 API_REST_INTERVAL = 1
 API_ERROR_INTERVAL = 10
+TIMEOUT = 7
 
 # If we're doing a dry run, use these numbers for BTC balances
 DRY_BTC = 50
@@ -112,7 +118,7 @@ LOG_LEVEL = logging.INFO
 ORDERID_PREFIX = "mm_bitmex_"
 
 # If any of these files (and this file) changes, reload the bot.
-WATCHED_FILES = [join("market_maker", f) for f in ["market_maker.py", "bitmex.py", __file__]]
+WATCHED_FILES = [join('market_maker', 'market_maker.py'), join('market_maker', 'bitmex.py'), 'settings.py']
 
 
 ########################################################################################################################
