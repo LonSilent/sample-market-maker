@@ -8,7 +8,7 @@ import json
 import decimal
 import logging
 from market_maker.settings import settings
-from market_maker.auth.APIKeyAuth import generate_nonce, generate_signature
+from market_maker.auth.APIKeyAuth import generate_expires, generate_signature
 from market_maker.utils.log import setup_custom_logger
 from market_maker.utils.math import toNearest
 from future.utils import iteritems
@@ -183,9 +183,9 @@ class BitMEXWebsocket():
         self.logger.info("Authenticating with API Key.")
         # To auth to the WS using an API key, we generate a signature of a nonce and
         # the WS API endpoint.
-        nonce = generate_nonce()
+        nonce = generate_expires()
         return [
-            "api-nonce: " + str(nonce),
+            "api-expires: " + str(nonce),
             "api-signature: " + generate_signature(settings.API_SECRET, 'GET', '/realtime', nonce, ''),
             "api-key:" + settings.API_KEY
         ]
@@ -205,7 +205,7 @@ class BitMEXWebsocket():
         '''Send a raw command.'''
         self.ws.send(json.dumps({"op": command, "args": args or []}))
 
-    def __on_message(self, ws, message):
+    def __on_message(self, message):
         '''Handler for parsing WS messages.'''
         message = json.loads(message)
         self.logger.debug(json.dumps(message))
@@ -289,10 +289,10 @@ class BitMEXWebsocket():
         except:
             self.logger.error(traceback.format_exc())
 
-    def __on_open(self, ws):
+    def __on_open(self):
         self.logger.debug("Websocket Opened.")
 
-    def __on_close(self, ws):
+    def __on_close(self):
         self.logger.info('Websocket Closed')
         self.exit()
 
